@@ -10,7 +10,6 @@ class App extends React.Component {
     let yAxisRight = yAxis[2].tickPositions;
     let { categories } = xAxis[0];
     let dataArr = [];
-
     series.map(function(item, index) {
       if (item.name == "均价") {
         item.data.map(function(n, i) {
@@ -65,15 +64,14 @@ class App extends React.Component {
     });
     let yExtents = [yAxisLeft[2], yAxisLeft[0]];
 
-    return { dataArr, amOpenL: yAxisLeft[0], yExtents };
+    return dataArr;
   };
 
   render() {
-    let dataProps = timeLineConfig && this.handleTimeLineChartConfig(timeLineConfig);
-    let { dataArr, amOpenL, yExtents } = dataProps;
+    let dataArr = timeLineConfig && this.handleTimeLineChartConfig(timeLineConfig);
 
-    return <div>
-        <Timeline data={dataArr} amOpenL={amOpenL} yExtents={yExtents} />
+    return <div className="demoContainer">
+        <Timeline data={dataArr}/>
       </div>;
   }
 }

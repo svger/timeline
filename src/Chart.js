@@ -92,7 +92,7 @@ class CandleStickChartWithHoverTooltip extends React.Component {
 
     return <div>
         <ChartCanvas height={height} width={width} ratio={ratio} margin={margin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[239, 0]} zoomMultiplier={0} xAxisZoom={() => {}} defaultFocus={false} panEvent={true} zoomEvent={false} mouseMoveEvent={true} clamp={false} zIndex={0} onSelect={this.onSelect}>
-          <Chart id={1} yExtents={yExtents} height={180} origin={(w, h) => [0, 0]}>
+          <Chart id={1} yExtents={[d => [d.avgPrice, d.lastPrice]]} height={180} origin={(w, h) => [0, 0]}>
             <axes.XAxis axisAt="bottom" orient="bottom" ticks={4} zoomEnabled={false} showTicks={false} showDomain={false} />
             <axes.YAxis axisAt="right" orient="right" ticks={5} zoomEnabled={false} showTicks={false} showDomain={false} />
 
@@ -105,7 +105,7 @@ class CandleStickChartWithHoverTooltip extends React.Component {
 
             <tooltip.HoverTooltip yAccessor={d => d.avgPrice} tooltipContent={tooltipContent(
                 [
-                  {
+                   {
                     label: `均价`,
                     value: d => d.avgPrice,
                     stroke: "rgba(255, 255, 0, 0.7)"
