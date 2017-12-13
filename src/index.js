@@ -45,7 +45,7 @@ class stockChartTimeline extends Component {
 
     return (
       <div className="container_bg_ChatBkg">
-        <Chart type="hybrid" data={finalData} yExtents={yExtents} />
+        <Chart type="hybrid" data={finalData}/>
       </div>
     );
   }
