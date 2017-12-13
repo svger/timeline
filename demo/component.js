@@ -67,12 +67,41 @@ class App extends React.Component {
     return dataArr;
   };
 
-  render() {
-    let dataArr = timeLineConfig && this.handleTimeLineChartConfig(timeLineConfig);
+  calculateData(data) {
+    let array = [];
+    data.map((item, index) => {
+      let date = new Date(item.x);
+      let date1 = date.toUTCString();
+      let finalDate = new Date(date1);
+      let newItem = {};
+      newItem.date = finalDate;
+      newItem.absoluteChange = item.absoluteChange;
+      newItem.close = item.close;
+      newItem.dividend = item.dividend;
+      newItem.high = item.high;
+      newItem.low = item.low;
+      newItem.open = item.open;
+      newItem.volume = item.y;
+      newItem.volumeColor = item.color;
+      newItem.x = item.x;
+      newItem.avgPrice = item.avgPrice;
+      newItem.lastPrice = item.lastPrice;
+      array.push(newItem);
+    });
 
-    return <div className="demoContainer">
-        <Timeline data={dataArr}/>
-      </div>;
+    return array;
+  }
+
+  render() {
+    let dataArr =
+      timeLineConfig && this.handleTimeLineChartConfig(timeLineConfig);
+    let finalData = this.calculateData(dataArr);
+
+    return (
+      <div className="demoContainer">
+        <Timeline chartData={finalData} />
+      </div>
+    );
   }
 }
 
