@@ -99,7 +99,7 @@ class App extends React.Component {
 
     return (
       <div className="demoContainer">
-        <Timeline chartData={finalData} />
+        <Timeline chartData={finalData}/>
       </div>
     );
   }

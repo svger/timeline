@@ -6,7 +6,6 @@ import { scaleLinear } from "d3-scale";
 import { format } from "d3-format";
 import { timeFormat } from "d3-time-format";
 import {
-  indicator,
   axes,
   helper,
   utils,
@@ -65,18 +64,7 @@ class stockChartTimeline extends Component {
 
   render() {
     let { type, chartData, yExtents, height, width, ratio, lineChartHeight, barChartHeight } = this.props;
-
-    const ema20 = indicator
-      .ema()
-      .id(0)
-      .options({ windowSize: 1 })
-      .merge((d, c) => {
-        d.ema20 = c;
-      })
-      .accessor(d => d.ema20);
-
     const margin = { left: 5, right: 5, top: 10, bottom: 0 };
-    const calculatedData = ema20(chartData);
     const xScaleProvider = scale.discontinuousTimeScaleProvider.inputDateAccessor(
       d => d.date
     );
