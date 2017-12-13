@@ -74,110 +74,45 @@ class stockChartTimeline extends Component {
     const end = xAccessor(data[Math.max(0, data.length - 150)]);
     const xExtents = [start, end];
 
-    return (
-      <div className="container_bg_ChatBkg">
-        <ChartCanvas
-          height={height}
-          width={width}
-          ratio={ratio}
-          margin={margin}
-          type={type}
-          seriesName="MSFT"
-          data={data}
-          xScale={scaleLinear()}
-          xAccessor={xAccessor}
-          xExtents={[239, 0]}
-          zoomMultiplier={0}
-          xAxisZoom={() => {}}
-          defaultFocus={false}
-          panEvent={true}
-          zoomEvent={false}
-          mouseMoveEvent={true}
-          clamp={false}
-          zIndex={0}
-          onSelect={this.onSelect}
-        >
-          <Chart
-            id={1}
-            yExtents={[d => [d.avgPrice, d.lastPrice]]}
-            height={lineChartHeight}
-            origin={(w, h) => [0, 0]}
-          >
-            <axes.XAxis
-              axisAt="bottom"
-              orient="bottom"
-              ticks={4}
-              zoomEnabled={false}
-              showTicks={false}
-              showDomain={false}
-            />
-            <axes.YAxis
-              axisAt="right"
-              orient="right"
-              ticks={5}
-              zoomEnabled={false}
-              showTicks={false}
-              showDomain={false}
-            />
+    return <div className="container_bg_ChatBkg">
+        <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={margin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[239, 0]} zoomMultiplier={0} xAxisZoom={() => {}} defaultFocus={false} panEvent={true} zoomEvent={false} mouseMoveEvent={true} clamp={false} zIndex={0} onSelect={this.onSelect}>
+          <Chart id={1} yExtents={[d => [d.avgPrice, d.lastPrice]]} height={lineChartHeight} origin={(w, h) => [0, 0]}>
+            <axes.XAxis axisAt="bottom" orient="bottom" ticks={4} zoomEnabled={false} showTicks={false} showDomain={false} />
+            <axes.YAxis axisAt="right" orient="right" ticks={5} zoomEnabled={false} showTicks={false} showDomain={false} />
 
-            <series.LineSeries
-              yAccessor={d => {
+            <series.LineSeries yAccessor={d => {
                 return d.avgPrice;
-              }}
-              stroke="rgba(255, 255, 0, 0.7)"
-            />
-            <series.LineSeries
-              yAccessor={d => {
+              }} stroke="rgba(255, 255, 0, 0.7)" />
+            <series.LineSeries yAccessor={d => {
                 return d.lastPrice;
-              }}
-              stroke="#fff"
-            />
+              }} stroke="#fff" />
 
-            <tooltip.HoverTooltip
-              yAccessor={d => d.avgPrice}
-              tooltipContent={tooltipContent([
-                {
-                  label: `均价`,
-                  value: d => d.avgPrice,
-                  stroke: "rgba(255, 255, 0, 0.7)"
-                },
-                {
-                  label: `当前价`,
-                  value: d => d.lastPrice,
-                  stroke: "#96b9cf"
-                }
-              ])}
-              fontSize={15}
-            />
+            <tooltip.HoverTooltip yAccessor={d => d.avgPrice} tooltipContent={tooltipContent(
+                [
+                  {
+                    label: `均价`,
+                    value: d => d.avgPrice,
+                    stroke: "rgba(255, 255, 0, 0.7)"
+                  },
+                  {
+                    label: `当前价`,
+                    value: d => d.lastPrice,
+                    stroke: "#96b9cf"
+                  }
+                ]
+              )} fontSize={15} />
           </Chart>
-          <Chart
-            id={2}
-            yExtents={[d => d.volume]}
-            height={barChartHeight}
-            origin={(w, h) => [0, h - 40]}
-          >
-            <axes.YAxis
-              axisAt="left"
-              orient="left"
-              ticks={5}
-              tickFormat={format(".0s")}
-              zoomEnabled={false}
-              showTicks={false}
-              showDomain={false}
-            />
+          <Chart id={2} yExtents={[d => d.volume]} height={barChartHeight} origin={(w, h) => [0, h - 40]}>
+            <axes.YAxis axisAt="left" orient="left" ticks={5} tickFormat={format(".0s")} zoomEnabled={false} showTicks={false} showDomain={false} />
 
-            <series.BarSeries
-              yAccessor={d => {
+            <series.BarSeries yAccessor={d => {
                 return d.volume;
-              }}
-              fill={d => {
+              }} fill={d => {
                 return d.volume ? d.volumeColor : "#393c43";
-              }}
-            />
+              }} />
           </Chart>
-        </ChartCanvas> 
-      </div>
-    );
+        </ChartCanvas>
+      </div>;
   }
 }
 
