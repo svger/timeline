@@ -187,7 +187,7 @@ class stockChartTimeline extends Component {
               }}
             />
           </Chart>
-        </ChartCanvas>{" "}
+        </ChartCanvas> 
       </div>
     );
   }
@@ -203,7 +203,7 @@ stockChartTimeline.propTypes = {
 };
 
 stockChartTimeline.defaultProps = {
-  type: "svg",
+  type: "hybrid",
   lineChartHeight: 180,
   barChartHeight: 40
 };
