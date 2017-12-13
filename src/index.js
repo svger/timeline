@@ -211,7 +211,3 @@ stockChartTimeline.defaultProps = {
 export default helper.fitDimensions(
   stockChartTimeline
 );
-
-
-
-111
