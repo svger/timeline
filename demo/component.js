@@ -41,7 +41,7 @@ class App extends React.Component {
         });
       }
 
-      if (item.type == "column") {
+      if (item.type == "column") {111111
         item.data.map(function(n, i) {
           let eachData = {};
 
