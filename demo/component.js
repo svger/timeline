@@ -1,6 +1,6 @@
 import React from "react";
-import Timeline from "../src";
-import styles from "../src/style/index.less";
+import Timeline from "../build";
+import styles from "../build/style/index.less";
 import PropTypes from "prop-types";
 
 class App extends React.Component {
