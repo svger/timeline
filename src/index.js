@@ -43,14 +43,13 @@ function tooltipContent(ys) {
 class stockChartTimeline extends Component {
 
   render() {
-    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight } = this.props;
-    const margin = { left: 5, right: 5, top: 10, bottom: 0 };
+    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin } = this.props;
     const xScaleProvider = scale.discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
     const { data, xAccessor, displayXAccessor } = xScaleProvider(chartData);
 
     return (
       <div className="container_bg_ChatBkg">
-        <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={margin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[239, 0]} zoomMultiplier={0} zIndex={0} xAxisZoom={() => {}} onSelect={this.onSelect} defaultFocus={false}  zoomEvent={false} clamp={false} panEvent mouseMoveEvent>
+        <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={chartMargin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[239, 0]} zoomMultiplier={0} zIndex={0} xAxisZoom={() => {}} onSelect={this.onSelect} defaultFocus={false}  zoomEvent={false} clamp={false} panEvent mouseMoveEvent>
           <Chart id={1} yExtents={[d => [d.avgPrice, d.lastPrice]]} height={lineChartHeight} origin={(w, h) => [0, 0]}>
             <axes.XAxis axisAt="bottom" orient="bottom" ticks={4} zoomEnabled={false} showTicks={false} showDomain={false} />
             <axes.YAxis axisAt="right" orient="right" ticks={5} zoomEnabled={false} showTicks={false} showDomain={false} />
@@ -102,13 +101,21 @@ stockChartTimeline.propTypes = {
   width: PropTypes.number,
   ratio: PropTypes.number,
   height: PropTypes.number,
-  type: PropTypes.oneOf(['svg', 'hybrid'])
+  type: PropTypes.oneOf(['svg', 'hybrid']),
+  chartMargin: PropTypes.shape({
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number,
+    bottom: PropTypes.number
+  }),
 };
-
 stockChartTimeline.defaultProps = {
   type: 'hybrid',
   lineChartHeight: 180,
-  barChartHeight: 40
+  barChartHeight: 40,
+  chartMargin: {
+    left: 5, right: 5, top: 10, bottom: 0
+  },
 };
 
 export default helper.fitDimensions(stockChartTimeline);

@@ -99,7 +99,7 @@ class App extends React.Component {
 
     return (
       <div className="demoContainer">
-        <Timeline chartData={finalData}/>
+        <Timeline chartData={finalData} chartMargin={{left: 0, right: 0, top: 10, bottom: 50}}/>
       </div>
     );
   }
