@@ -64,7 +64,7 @@ class App extends React.Component {
     });
     let yExtents = [yAxisLeft[2], yAxisLeft[0]];
 
-    return dataArr;
+    return { dataArr, yExtents };
   };
 
   calculateData(data) {
@@ -93,13 +93,16 @@ class App extends React.Component {
   }
 
   render() {
-    let dataArr =
-      timeLineConfig && this.handleTimeLineChartConfig(timeLineConfig);
+    let data =
+        timeLineConfig && this.handleTimeLineChartConfig(timeLineConfig);
+    let { dataArr, yExtents } = data;
+
     let finalData = this.calculateData(dataArr);
+
 
     return (
       <div className="demoContainer">
-        <Timeline chartData={finalData} chartMargin={{left: 0, right: 0, top: 10, bottom: 0}} showGrid={true}/>
+        <Timeline chartData={finalData} chartMargin={{left: 0, right: 0, top: 0, bottom: 0}} showGrid={true} yExtents={yExtents} backgroundColor="#393c43" />
       </div>
     );
   }

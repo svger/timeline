@@ -43,7 +43,7 @@ function tooltipContent(ys) {
 class stockChartTimeline extends Component {
 
   render() {
-    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid } = this.props;
+    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor } = this.props;
     const xScaleProvider = scale.discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
     const { data, xAccessor, displayXAccessor } = xScaleProvider(chartData);
     let gridHeight = height - chartMargin.top - chartMargin.bottom;
@@ -65,11 +65,11 @@ class stockChartTimeline extends Component {
     } : {};
 
     return (
-      <div className="container_bg_ChatBkg">
+      <div className="container_bg_ChatBkg" style={{'backgroundColor' : backgroundColor}}>
         <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={chartMargin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[239, 0]} zoomMultiplier={0} zIndex={0} xAxisZoom={() => {}} onSelect={this.onSelect} defaultFocus={false}  zoomEvent={false} clamp={false} panEvent mouseMoveEvent>
-          <Chart id={1} yExtents={[d => [d.avgPrice, d.lastPrice]]} height={lineChartHeight} origin={(w, h) => [0, 0]}>
-            <axes.XAxis axisAt="bottom" orient="bottom" ticks={1} zoomEnabled={false} showTickLabel={false} {...xGrid} />
-            <axes.YAxis axisAt="right" orient="right" ticks={2} zoomEnabled={false} showTickLabel={false} {...yGrid} />
+          <Chart id={1} yExtents={yExtents} height={lineChartHeight} origin={(w, h) => [0, 0]}>
+            <axes.XAxis axisAt="bottom" orient="bottom" ticks={1} zoomEnabled={false} showTickLabel={false} {...xGrid}/>
+            <axes.YAxis axisAt="right" orient="right" ticks={2} zoomEnabled={false} showTickLabel={false} {...yGrid} showDomain={false}/>
             <series.LineSeries
                 yAccessor={d => {
                   return d.avgPrice;
@@ -98,7 +98,7 @@ class stockChartTimeline extends Component {
           </Chart>
           <Chart id={2} yExtents={[d => d.volume]} height={barChartHeight} origin={(w, h) => [0, h - 40]}>
             <axes.YAxis axisAt="left" orient="left" ticks={5} tickFormat={format('.0s')} zoomEnabled={false} showTicks={false} showDomain={false} />
-            <axes.XAxis axisAt="bottom" orient="bottom" ticks={1} zoomEnabled={false} showTickLabel={false} {...xGrid} />
+            <axes.XAxis axisAt="bottom" orient="bottom" ticks={1} zoomEnabled={false} showTickLabel={false} {...xGrid} showDomain={false}/>
             <series.BarSeries
                 yAccessor={d => {
                   return d.volume;
