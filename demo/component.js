@@ -102,7 +102,7 @@ class App extends React.Component {
 
     return (
       <div className="demoContainer">
-        <Timeline chartData={finalData} chartMargin={{left: 0, right: 0, top: 0, bottom: 0}} showGrid={true} yExtents={yExtents} backgroundColor="#393c43" />
+        <Timeline chartData={finalData} chartMargin={{left: 0, right: 0, top: 0, bottom: 0}}  yExtents={yExtents} backgroundColor="#393c43" />
       </div>
     );
   }
