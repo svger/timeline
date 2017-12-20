@@ -43,7 +43,7 @@ function tooltipContent(ys) {
 class stockChartTimeline extends Component {
 
   render() {
-    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor } = this.props;
+    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset } = this.props;
     const xScaleProvider = scale.discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
     const { data, xAccessor, displayXAccessor } = xScaleProvider(chartData);
     let gridHeight = height - chartMargin.top - chartMargin.bottom;
@@ -63,9 +63,10 @@ class stockChartTimeline extends Component {
       tickSize: 100,
       tickValues: [parseInt(data.length / 2)],
     } : {};
+    style.backgroundColor = backgroundColor;
 
     return (
-      <div className="container_bg_ChatBkg" style={{'backgroundColor': backgroundColor}} >
+      <div className="container_bg_ChatBkg" style={style} >
         <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={chartMargin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[239, 0]} zoomMultiplier={0} zIndex={0} xAxisZoom={() => {}} onSelect={this.onSelect} defaultFocus={false}  zoomEvent={false} clamp={false} panEvent mouseMoveEvent>
           <Chart id={1} yExtents={yExtents} height={lineChartHeight} origin={(w, h) => [0, 0]}>
             <axes.XAxis axisAt="bottom" orient="bottom" ticks={1} zoomEnabled={false} showTickLabel={false} {...xGrid} />
@@ -94,6 +95,7 @@ class stockChartTimeline extends Component {
                     stroke: '#96b9cf'
                   }
                 ])} fontSize={15}
+                offset={offset}
             />
           </Chart>
           <Chart id={2} yExtents={[d => d.volume]} height={barChartHeight} origin={(w, h) => [0, h - 40]}>
@@ -105,6 +107,7 @@ class stockChartTimeline extends Component {
                 }} fill={d => {
                   return d.volume ? d.volumeColor : '#393c43';
             }}
+                offset={offset}
             />
           </Chart>
         </ChartCanvas>
@@ -129,16 +132,21 @@ stockChartTimeline.propTypes = {
   showGrid: PropTypes.bool,
   yExtents: PropTypes.array,
   backgroundColor: PropTypes.string,
+  style: PropTypes.object,
+  offset: PropTypes.number,
 };
 
 stockChartTimeline.defaultProps = {
   type: 'hybrid',
   lineChartHeight: 180,
   barChartHeight: 40,
+  offset: 3,
   chartMargin: {
     left: 5, right: 5, top: 10, bottom: 0
   },
-  showGrid: true
+  showGrid: true,
+  backgroundColor: '#393c43',
+  style: {}
 };
 
 export default helper.fitDimensions(stockChartTimeline);

@@ -1,5 +1,21 @@
 @cellPrefixCls: cefc-timeline;
+@body-bg-color-white:               #ffffff;
 @space: .15rem;
 .demoContainer {
   height: 252px;
+}
+
+.container_bg_ChatBkg {
+  .resetContainerBg(#393c43);
+}
+
+.resetContainerBg(@color:@body-bg-color-white) {
+  position: absolute;
+  .resize(100%, 100%);
+  background-color: @color;
+}
+
+.resize(@width, @height) {
+  width: @width;
+  height: @height;
 }
