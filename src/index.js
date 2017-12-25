@@ -43,18 +43,19 @@ function tooltipContent(ys) {
 class stockChartTimeline extends Component {
 
   render() {
-    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset } = this.props;
+    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset, lineTickValues, barTickValues } = this.props;
     const xScaleProvider = scale.discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
     const { data, xAccessor, displayXAccessor } = xScaleProvider(chartData);
     let gridHeight = height - chartMargin.top - chartMargin.bottom;
     let gridWidth = width - chartMargin.left - chartMargin.right;
-    let yGrid = showGrid ? {
+    let lineYGrid = showGrid ? {
       innerTickSize: -1 * gridWidth,
       tickStrokeDasharray: 'Solid',
       tickStrokeOpacity: 1,
       tickStrokeWidth: 1,
       tickSize: 100,
-    } : {};
+      tickValues: [lineTickValues]
+      } : {};
     let xGrid = showGrid ? {
       innerTickSize: -1 * gridHeight,
       tickStrokeDasharray: 'Solid',
@@ -63,6 +64,14 @@ class stockChartTimeline extends Component {
       tickSize: 100,
       tickValues: [parseInt(data.length / 2)],
     } : {};
+    let barYGrid = showGrid ? {
+          innerTickSize: -1 * gridWidth,
+          tickStrokeDasharray: 'Solid',
+          tickStrokeOpacity: 1,
+          tickStrokeWidth: 1,
+          tickSize: 100,
+          tickValues: [barTickValues]
+        } : {};
     style.backgroundColor = backgroundColor;
 
     return (
@@ -70,7 +79,7 @@ class stockChartTimeline extends Component {
         <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={chartMargin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[239, 0]} zoomMultiplier={0} zIndex={0} xAxisZoom={() => {}} onSelect={this.onSelect} defaultFocus={false}  zoomEvent={false} clamp={false} panEvent mouseMoveEvent>
           <Chart id={1} yExtents={yExtents} height={lineChartHeight} origin={(w, h) => [0, 0]}>
             <axes.XAxis axisAt="bottom" orient="bottom" ticks={1} zoomEnabled={false} showTickLabel={false} {...xGrid} />
-            <axes.YAxis axisAt="right" orient="right" ticks={2} zoomEnabled={false} showTickLabel={false} {...yGrid} showDomain={false} />
+            <axes.YAxis axisAt="right" orient="right" zoomEnabled={false} showTickLabel={false} {...lineYGrid} showDomain={false} />
             <series.LineSeries
                 yAccessor={d => {
                   return d.avgPrice;
@@ -99,8 +108,8 @@ class stockChartTimeline extends Component {
             />
           </Chart>
           <Chart id={2} yExtents={[d => d.volume]} height={barChartHeight} origin={(w, h) => [0, h - 40]}>
-            <axes.YAxis axisAt="left" orient="left" ticks={5} tickFormat={format('.0s')} zoomEnabled={false} showTicks={false} showDomain={false} />
-            <axes.XAxis axisAt="bottom" orient="bottom" ticks={1} zoomEnabled={false} showTickLabel={false} {...xGrid} showDomain={false} />
+            <axes.YAxis axisAt="left" orient="left" ticks={1} tickFormat={format('.0s')} zoomEnabled={false} showTickLabel={false} {...barYGrid} showDomain={false} />
+            <axes.XAxis axisAt="bottom" orient="bottom" zoomEnabled={false} showTickLabel={false} {...xGrid} showDomain={false} />
             <series.BarSeries
                 yAccessor={d => {
                   return d.volume;
@@ -119,6 +128,8 @@ stockChartTimeline.propTypes = {
   chartData: PropTypes.array.isRequired,
   lineChartHeight: PropTypes.number,
   barChartHeight: PropTypes.number,
+  lineTickValues: PropTypes.array,
+  barTickValues: PropTypes.array,
   width: PropTypes.number,
   ratio: PropTypes.number,
   height: PropTypes.number,
@@ -141,6 +152,8 @@ stockChartTimeline.defaultProps = {
   lineChartHeight: 180,
   barChartHeight: 40,
   offset: 3,
+  lineTickValues: [],
+  barTickValues: [],
   chartMargin: {
     left: 5, right: 5, top: 10, bottom: 0
   },
