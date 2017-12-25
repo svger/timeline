@@ -103,7 +103,8 @@ class stockChartTimeline extends Component {
                     value: d => d.lastPrice,
                     stroke: '#96b9cf'
                   }
-                ])} fontSize={15}
+                ])}
+                fontSize={12}
                 offset={offset}
             />
           </Chart>
