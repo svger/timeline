@@ -15,7 +15,7 @@ import styles from './style/index.less';
 const numberFormat = format('.2f');
 
 function tooltipContent(ys) {
-  return ({ currentItem, xAccessor }) => {
+  return ({ currentItem }) => {
     let { volume, avgPrice, lastPrice } = currentItem;
     let timeLineJudge = !avgPrice && !lastPrice && !volume;
 
@@ -24,18 +24,18 @@ function tooltipContent(ys) {
     }
 
     return {
-      x: '时间:' + currentItem.x,
-      y: [
-        {
-          label: '成交量',
-          value: currentItem.volume && numberFormat(currentItem.volume)
-        }
-      ]
-        .concat(ys.map(each => ({
+      x: '时间: ' + currentItem.x,
+      y: (ys.map(function (each) {
+        return {
           label: each.label,
           value: each.value(currentItem),
-          stroke: each.stroke
-        }))).filter(line => line.value)
+        };
+      })).concat([{
+        label: '成交量',
+        value: currentItem.volume && numberFormat(currentItem.volume)
+      }]).filter(function (line) {
+        return line.value;
+      })
     };
   };
 }
