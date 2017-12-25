@@ -25,7 +25,7 @@ function tooltipContent(ys) {
 
     return {
       x: '时间: ' + currentItem.x,
-      y: (ys.map(function (each) {
+      y: (ys.map((each) => {
         return {
           label: each.label,
           value: each.value(currentItem),
@@ -33,7 +33,7 @@ function tooltipContent(ys) {
       })).concat([{
         label: '成交量',
         value: currentItem.volume && numberFormat(currentItem.volume)
-      }]).filter(function (line) {
+      }]).filter((line) => {
         return line.value;
       })
     };
@@ -54,8 +54,8 @@ class stockChartTimeline extends Component {
       tickStrokeOpacity: 1,
       tickStrokeWidth: 1,
       tickSize: 100,
-      tickValues: [lineTickValues]
-      } : {};
+      tickValues: lineTickValues
+    } : {};
     let xGrid = showGrid ? {
       innerTickSize: -1 * gridHeight,
       tickStrokeDasharray: 'Solid',
@@ -65,13 +65,13 @@ class stockChartTimeline extends Component {
       tickValues: [parseInt(data.length / 2)],
     } : {};
     let barYGrid = showGrid ? {
-          innerTickSize: -1 * gridWidth,
-          tickStrokeDasharray: 'Solid',
-          tickStrokeOpacity: 1,
-          tickStrokeWidth: 1,
-          tickSize: 100,
-          tickValues: [barTickValues]
-        } : {};
+      innerTickSize: -1 * gridWidth,
+      tickStrokeDasharray: 'Solid',
+      tickStrokeOpacity: 1,
+      tickStrokeWidth: 1,
+      tickSize: 100,
+      tickValues: barTickValues
+    } : {};
     style.backgroundColor = backgroundColor;
 
     return (
