@@ -108,7 +108,7 @@ class stockChartTimeline extends Component {
                 offset={offset}
             />
           </Chart>
-          <Chart id={2} yExtents={[d => d.volume]} height={barChartHeight} origin={(w, h) => [0, h - 40]}>
+          <Chart id={2} yExtents={[d => d.volume]} height={barChartHeight} origin={(w, h) => [0, h - barChartHeight]}>
             <axes.YAxis axisAt="left" orient="left" ticks={1} tickFormat={format('.0s')} zoomEnabled={false} showTickLabel={false} {...barYGrid} showDomain={false} />
             <axes.XAxis axisAt="bottom" orient="bottom" zoomEnabled={false} showTickLabel={false} {...xGrid} showDomain={false} />
             <series.BarSeries
@@ -151,7 +151,7 @@ stockChartTimeline.propTypes = {
 stockChartTimeline.defaultProps = {
   type: 'hybrid',
   lineChartHeight: 180,
-  barChartHeight: 40,
+  barChartHeight: 60,
   offset: 3,
   lineTickValues: [],
   barTickValues: [],
