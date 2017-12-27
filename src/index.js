@@ -83,12 +83,14 @@ class stockChartTimeline extends Component {
             <series.LineSeries
                 yAccessor={d => {
                   return d.avgPrice;
-                }} stroke="rgba(255, 255, 0, 0.7)"
+                }}
+                stroke="rgba(255, 255, 0, 0.7)"
             />
-            <series.LineSeries
+            <series.AreaSeries
                 yAccessor={d => {
                   return d.lastPrice;
-                }} stroke="#fff"
+                }}
+                stroke='#96b9cf'
             />
             <tooltip.HoverTooltip
                 yAccessor={d => d.avgPrice}
