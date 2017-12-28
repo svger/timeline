@@ -90,7 +90,7 @@ class stockChartTimeline extends Component {
                 yAccessor={d => {
                   return d.lastPrice;
                 }}
-                stroke='#96b9cf'
+                stroke="#96b9cf"
             />
             <tooltip.HoverTooltip
                 yAccessor={d => d.avgPrice}
