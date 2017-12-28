@@ -10,7 +10,7 @@ import {
   tooltip,
   scale,
   series
-} from 'cefc-reactstockcharts';
+} from 'cefc-stockcharts';
 import styles from './style/index.less';
 const numberFormat = format('.2f');
 
