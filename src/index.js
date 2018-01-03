@@ -81,7 +81,7 @@ function tooltipContent(ys) {
       y: (ys.map((each) => {
         return {
           label: each.label,
-          value: each.value(currentItem),
+          value: unitFormat({ value: Number(each.value(currentItem)) }),
         };
       })).concat([{
         label: '成交量',
