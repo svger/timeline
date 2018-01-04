@@ -1,21 +1,114 @@
 @cellPrefixCls: cefc-timeline;
 @body-bg-color-white:               #ffffff;
 @space: .15rem;
+@font-size-small:                        .1rem;
+
 .demoContainer {
   height: 252px;
 }
 
 .container_bg_ChatBkg {
-  .resetContainerBg(#393c43);
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
-.resetContainerBg(@color:@body-bg-color-white) {
-  position: absolute;
-  .resize(100%, 100%);
-  background-color: @color;
-}
+.realTimeOpenCloseTime {
+  color: #c5c5c5;
+  font-size: @font-size-small;
+  //width: 100%;
+  //bottom: 1em;
 
-.resize(@width, @height) {
-  width: @width;
-  height: @height;
+  .fl_left {
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+
+    &.index {
+      left: 10px;
+    }
+  }
+
+  .fl_right {
+    position: absolute;
+    right: 0;
+    bottom: 2px;
+
+    &.index {
+      right: 10px;
+    }
+  }
+
+  .fl_middle {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 2px;
+  }
+
+  .yAxisLeft_top {
+    position: absolute;
+    left: 2px;
+    top: 0px;
+
+    &.index {
+      left: 10px;
+      top: 15%;
+    }
+  }
+
+  .yAxisLeft_middle {
+    position: absolute;
+    left: 2px;
+    top: 30%;
+
+    &.index {
+      left: 10px;
+      top: 41.5%;
+    }
+  }
+
+  .yAxisLeft_bottom {
+    position: absolute;
+    left: 2px;
+    top: 60%;
+
+    &.index {
+      left: 10px;
+      top: 67%;
+    }
+  }
+
+  .yAxisLeft_bottom_volume {
+    position: absolute;
+    left: 2px;
+    top: 72%;
+
+    &.index {
+      left: 10px;
+      top: 78%;
+    }
+  }
+
+  .yAxisRight_top {
+    position: absolute;
+    right: 0;
+    top: 0px;
+
+    &.index {
+      right: 10px;
+      top: 15%;
+    }
+  }
+
+  .yAxisRight_bottom {
+    position: absolute;
+    right: 0;
+    top: 60%;
+
+    &.index {
+      right: 10px;
+      top: 67%;
+    }
+  }
 }

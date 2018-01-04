@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
+import cx from 'classnames';
 import { format } from 'd3-format';
 import {
   ChartCanvas,
@@ -96,7 +97,8 @@ function tooltipContent(ys) {
 class stockChartTimeline extends Component {
 
   render() {
-    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset, lineTickValues, barTickValues } = this.props;
+    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset, lineTickValues, barTickValues, eventCoordinateReverse, isIndex, gridLabel } = this.props;
+    const { yAxisLeft, yAxisRight, volumeMaxValue } = gridLabel;
     const xScaleProvider = scale.discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
     const { data, xAccessor, displayXAccessor } = xScaleProvider(chartData);
     let gridHeight = height - chartMargin.top - chartMargin.bottom;
@@ -129,7 +131,34 @@ class stockChartTimeline extends Component {
 
     return (
       <div className="container_bg_ChatBkg" style={style} >
-        <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={chartMargin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[240, 0]} zoomMultiplier={0} zIndex={0} xAxisZoom={() => {}} onSelect={this.onSelect} defaultFocus={false}  zoomEvent={false} clamp={false} panEvent mouseMoveEvent>
+        <div className="realTimeOpenCloseTime">
+          <span className={cx('fl_left', {
+            index: isIndex
+          })}>9:30</span>
+          <span className="fl_middle">11:30|13:00</span>
+          <span className={cx('fl_right', {
+            index: isIndex
+          })}>15:00</span>
+          <span className={cx('yAxisLeft_top', {
+            index: isIndex
+          })}>{yAxisLeft[2]}</span>
+          <span className={cx('yAxisLeft_middle', {
+            index: isIndex
+          })}>{yAxisLeft[1]}</span>
+          <span className={cx('yAxisLeft_bottom', {
+            index: isIndex
+          })}>{yAxisLeft[0]}</span>
+          <span className={cx('yAxisLeft_bottom_volume', {
+            index: isIndex
+          })}>{unitFormat({ value: isFinite(volumeMaxValue) ? volumeMaxValue : '' })}</span>
+          <span className={cx('yAxisRight_top', {
+            index: isIndex
+          })}>{yAxisRight[1]}</span>
+          <span className={cx('yAxisRight_bottom', {
+            index: isIndex
+          })}>{yAxisRight[0]}</span>
+        </div>
+        <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={chartMargin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[240, 0]} zoomMultiplier={0} zIndex={0} xAxisZoom={() => {}} onSelect={this.onSelect} defaultFocus={false}  zoomEvent={false} clamp={false} eventCoordinateReverse={eventCoordinateReverse} panEvent mouseMoveEvent>
           <Chart id={1} yExtents={yExtents} height={lineChartHeight} origin={(w, h) => [0, 0]}>
             <axes.XAxis axisAt="bottom" orient="bottom" ticks={1} zoomEnabled={false} showTickLabel={false} {...xGrid} />
             <axes.YAxis axisAt="right" orient="right" zoomEnabled={false} showTickLabel={false} {...lineYGrid} showDomain={false} />
@@ -198,17 +227,22 @@ stockChartTimeline.propTypes = {
   }),
   showGrid: PropTypes.bool,
   yExtents: PropTypes.array,
+  isIndex: PropTypes.bool,
+  gridLabel: PropTypes.object,
   backgroundColor: PropTypes.string,
   style: PropTypes.object,
   offset: PropTypes.number,
+  eventCoordinateReverse: PropTypes.bool,
 };
 
 stockChartTimeline.defaultProps = {
   type: 'hybrid',
   lineChartHeight: 180,
+  isIndex: false,
   barChartHeight: 60,
   offset: 3,
   lineTickValues: [],
+  eventCoordinateReverse: false,
   barTickValues: [],
   chartMargin: {
     left: 5, right: 5, top: 10, bottom: 0
