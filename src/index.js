@@ -68,7 +68,44 @@ const unitFormat = (config) => {
   return integerName ? `${retNum}${integerName}` : parseFloat(retNum);
 }
 
-function tooltipContent(ys) {
+
+/**
+ * @description 格式化数字，根据数据精度，显示小数点的位数
+ * @author CarltonXiang
+ * @config
+ *  @param value  待格式化的数字
+ *  @param precision 小数点精度 3代表显示3位小数，2代表显示2位小数
+ *  @param defaultValue 默认显示
+ * @returns {string}
+ */
+const decimalFormat = (config, preci) => {
+  let value = '';
+  let precision = 2; // 小数点精度，默认显示2位小数
+  let defaultValue = '--'; //默认显示
+
+  if (typeof config === 'object') {
+    value = config.value;
+    precision = config.precision || precision;
+    defaultValue = config.defaultValue || defaultValue;
+  } else {
+    value = config;
+    precision = preci ? preci : precision;
+  }
+
+  let returnNum = parseFloat(value);
+
+  //不是数字，返回默认显示
+  if (isNaN(returnNum)) {
+
+    return defaultValue;
+  }
+
+  const val = returnNum * Math.pow(10, precision);
+
+  return (Math.round(val) / Math.pow(10, precision)).toFixed(precision);
+};
+
+function tooltipContent(ys, precision) {
   return ({ currentItem }) => {
     let { volume, avgPrice, lastPrice } = currentItem;
     let timeLineJudge = !avgPrice && !lastPrice && !volume;
@@ -82,11 +119,11 @@ function tooltipContent(ys) {
       y: (ys.map((each) => {
         return {
           label: each.label,
-          value: unitFormat({ value: Number(each.value(currentItem)) }),
+          value: decimalFormat({ value:  Number(each.value(currentItem)) , precision: precision}),
         };
       })).concat([{
         label: '成交量',
-        value: currentItem.volume && unitFormat({ value: currentItem.volume }) + '手'
+        value: currentItem.volume && unitFormat({ value: currentItem.volume , precision: precision}) + '手'
       }]).filter((line) => {
         return line.value;
       })
@@ -97,7 +134,7 @@ function tooltipContent(ys) {
 class stockChartTimeline extends Component {
 
   render() {
-    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset, lineTickValues, barTickValues, eventCoordinateReverse, isIndex, gridLabel } = this.props;
+    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset, lineTickValues, barTickValues, eventCoordinateReverse, isIndex, gridLabel, precision } = this.props;
     const { yAxisLeft, yAxisRight, volumeMaxValue } = gridLabel;
     const xScaleProvider = scale.discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
     const { data, xAccessor, displayXAccessor } = xScaleProvider(chartData);
@@ -128,23 +165,20 @@ class stockChartTimeline extends Component {
       tickValues: barTickValues
     } : {};
     style.backgroundColor = backgroundColor;
+    let landscape = false;
+
+    if (!isIndex && 1.5 * height <  width) { // 说明是非指数 横屏
+      landscape = true;
+    }
 
     return (
       <div className="container_bg_ChatBkg" style={style} >
         <div className="realTimeOpenCloseTime">
-          <span className={cx('fl_left', {
-            index: isIndex
-          })}>9:30</span>
-          <span className="fl_middle">11:30|13:00</span>
-          <span className={cx('fl_right', {
-            index: isIndex
-          })}>15:00</span>
-          <span className={cx('yAxisLeft_top', {
-            index: isIndex
-          })}>{yAxisLeft[2]}</span>
-          <span className={cx('yAxisLeft_middle', {
-            index: isIndex
-          })}>{yAxisLeft[1]}</span>
+          <span className={cx('fl_left', { index: isIndex }, { landscape: landscape })}>9:30</span>
+          <span className={cx('fl_middle', { index: isIndex }, { landscape: landscape })}>11:30|13:00</span>
+          <span className={cx('fl_right', { index: isIndex }, { landscape: landscape })}>15:00</span>
+          <span className={cx('yAxisLeft_top', { index: isIndex })}>{yAxisLeft[2]}</span>
+          <span className={cx('yAxisLeft_middle', { index: isIndex })}>{yAxisLeft[1]}</span>
           <span className={cx('yAxisLeft_bottom', {
             index: isIndex
           })}>{yAxisLeft[0]}</span>
@@ -187,7 +221,7 @@ class stockChartTimeline extends Component {
                     value: d => d.lastPrice,
                     stroke: '#96b9cf'
                   }
-                ])}
+                ], precision)}
                 fontSize={12}
                 offset={offset}
             />
@@ -233,6 +267,7 @@ stockChartTimeline.propTypes = {
   style: PropTypes.object,
   offset: PropTypes.number,
   eventCoordinateReverse: PropTypes.bool,
+  precision: PropTypes.number
 };
 
 stockChartTimeline.defaultProps = {
@@ -249,7 +284,8 @@ stockChartTimeline.defaultProps = {
   },
   showGrid: true,
   backgroundColor: '#393c43',
-  style: {}
+  style: {},
+  precision: 2
 };
 
 export default helper.fitDimensions(stockChartTimeline);

@@ -16,26 +16,37 @@
 .realTimeOpenCloseTime {
   color: #c5c5c5;
   font-size: @font-size-small;
+  z-index: 5;
+
   //width: 100%;
   //bottom: 1em;
 
   .fl_left {
     position: absolute;
     left: 0;
-    bottom: 2px;
+    bottom: -0.02rem;
 
     &.index {
-      left: 10px;
+      left: 0;
+      bottom: -0.15rem;
+    }
+
+    &.landscape {
+      bottom: -0.1rem;
     }
   }
 
   .fl_right {
     position: absolute;
     right: 0;
-    bottom: 2px;
+    bottom: -0.02rem;
 
     &.index {
-      right: 10px;
+      bottom: -0.15rem;
+    }
+
+    &.landscape {
+      bottom: -0.1rem;
     }
   }
 
@@ -43,49 +54,58 @@
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
-    bottom: 2px;
+    bottom: -0.02rem;
+
+    &.index {
+      bottom: -0.15rem;
+    }
+
+    &.landscape {
+      bottom: -0.1rem;
+    }
   }
 
   .yAxisLeft_top {
     position: absolute;
-    left: 2px;
-    top: 0px;
+    left: 0;
+    top: 0;
 
     &.index {
-      left: 10px;
-      top: 15%;
+      left: 0;
+      top: 0;
     }
   }
 
   .yAxisLeft_middle {
     position: absolute;
-    left: 2px;
+    left: 0;
     top: 30%;
 
     &.index {
-      left: 10px;
+      left: 0;
       top: 41.5%;
     }
   }
 
   .yAxisLeft_bottom {
     position: absolute;
-    left: 2px;
+    left: 0;
     top: 60%;
 
     &.index {
-      left: 10px;
+      left: 0;
       top: 67%;
     }
   }
 
   .yAxisLeft_bottom_volume {
     position: absolute;
-    left: 2px;
+    left: 0;
     top: 72%;
+    z-index: 5;
 
     &.index {
-      left: 10px;
+      left: 0;
       top: 78%;
     }
   }
@@ -93,11 +113,11 @@
   .yAxisRight_top {
     position: absolute;
     right: 0;
-    top: 0px;
+    top: 0;
 
     &.index {
-      right: 10px;
-      top: 15%;
+      right: 0;
+      top: 0;
     }
   }
 
@@ -107,7 +127,7 @@
     top: 60%;
 
     &.index {
-      right: 10px;
+      right: 0;
       top: 67%;
     }
   }
