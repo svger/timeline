@@ -118,8 +118,8 @@ function tooltipContent(ys, precision) {
       x: '时间: ' + currentItem.x,
       y: (ys.map((each) => {
         return {
-          label: each.label,
-          value: decimalFormat({ value:  Number(each.value(currentItem)) , precision: precision}),
+          label: each.value(currentItem) && each.label,
+          value: each.value(currentItem) && decimalFormat({ value: Number(each.value(currentItem)), precision: precision })
         };
       })).concat([{
         label: '成交量',
@@ -170,6 +170,7 @@ class stockChartTimeline extends Component {
     if (!isIndex && 1.5 * height <  width) { // 说明是非指数 横屏
       landscape = true;
     }
+    let delta = (Number(yExtents[0]) - Number(yExtents[1])) * 0.01;
 
     return (
       <div className="container_bg_ChatBkg" style={style} >
@@ -189,7 +190,7 @@ class stockChartTimeline extends Component {
           })}>{yAxisRight[0]}</span>
         </div>
         <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={chartMargin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[240, 0]} zoomMultiplier={0} zIndex={0} xAxisZoom={() => {}} onSelect={this.onSelect} defaultFocus={false}  zoomEvent={false} clamp={false} eventCoordinateReverse={eventCoordinateReverse} panEvent mouseMoveEvent>
-          <Chart id={1} yExtents={yExtents} height={lineChartHeight} origin={(w, h) => [0, 0]}>
+          <Chart id={1} yExtents={[Number(yExtents[0]) + delta, Number(yExtents[1]) - delta]} height={lineChartHeight} origin={(w, h) => [0, 0]}>
             <axes.XAxis axisAt="bottom" orient="bottom" ticks={1} zoomEnabled={false} showTickLabel={false} {...xGrid} />
             <axes.YAxis axisAt="right" orient="right" zoomEnabled={false} showTickLabel={false} {...lineYGrid} showDomain={false} />
             <series.LineSeries
