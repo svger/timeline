@@ -1,0 +1,144 @@
+.demoContainer {
+  height: 252px;
+}
+.container_bg_ChatBkg {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.realTimeOpenCloseTime {
+  color: #c5c5c5;
+  font-size: 0.1rem;
+}
+.realTimeOpenCloseTime .fl_left {
+  position: absolute;
+  left: 0;
+  bottom: -0.02rem;
+  z-index: 5;
+}
+.realTimeOpenCloseTime .fl_left.index {
+  left: 0;
+  bottom: -0.15rem;
+}
+.realTimeOpenCloseTime .fl_left.landscape {
+  bottom: -0.1rem;
+  -webkit-transform: translateZ(100px);
+          transform: translateZ(100px);
+}
+.realTimeOpenCloseTime .fl_right {
+  position: absolute;
+  right: 0;
+  bottom: -0.02rem;
+  z-index: 5;
+}
+.realTimeOpenCloseTime .fl_right.index {
+  bottom: -0.15rem;
+}
+.realTimeOpenCloseTime .fl_right.landscape {
+  bottom: -0.1rem;
+  -webkit-transform: translateZ(100px);
+          transform: translateZ(100px);
+}
+.realTimeOpenCloseTime .fl_middle {
+  position: absolute;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  left: 50%;
+  bottom: -0.02rem;
+  z-index: 5;
+}
+.realTimeOpenCloseTime .fl_middle.index {
+  bottom: -0.15rem;
+}
+.realTimeOpenCloseTime .fl_middle.landscape {
+  bottom: -0.1rem;
+  -webkit-transform: translateZ(100px);
+          transform: translateZ(100px);
+}
+.realTimeOpenCloseTime .yAxisLeft_top {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+}
+.realTimeOpenCloseTime .yAxisLeft_top.index {
+  left: 0;
+  top: 0;
+}
+.realTimeOpenCloseTime .yAxisLeft_top.landscape {
+  -webkit-transform: translateZ(100px);
+          transform: translateZ(100px);
+}
+.realTimeOpenCloseTime .yAxisLeft_middle {
+  position: absolute;
+  left: 0;
+  top: 30%;
+  z-index: 5;
+}
+.realTimeOpenCloseTime .yAxisLeft_middle.index {
+  left: 0;
+  top: 41.5%;
+}
+.realTimeOpenCloseTime .yAxisLeft_middle.landscape {
+  -webkit-transform: translateZ(100px);
+          transform: translateZ(100px);
+}
+.realTimeOpenCloseTime .yAxisLeft_bottom {
+  position: absolute;
+  left: 0;
+  top: 60%;
+}
+.realTimeOpenCloseTime .yAxisLeft_bottom.index {
+  left: 0;
+  top: 67%;
+}
+.realTimeOpenCloseTime .yAxisLeft_bottom.landscape {
+  top: 65%;
+  z-index: 5;
+  -webkit-transform: translateZ(100px);
+          transform: translateZ(100px);
+}
+.realTimeOpenCloseTime .yAxisLeft_bottom_volume {
+  position: absolute;
+  left: 0;
+  top: 72%;
+  z-index: 5;
+}
+.realTimeOpenCloseTime .yAxisLeft_bottom_volume.index {
+  left: 0;
+  top: 78%;
+}
+.realTimeOpenCloseTime .yAxisLeft_bottom_volume.landscape {
+  top: 77%;
+  z-index: 5;
+  -webkit-transform: translateZ(100px);
+          transform: translateZ(100px);
+}
+.realTimeOpenCloseTime .yAxisRight_top {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.realTimeOpenCloseTime .yAxisRight_top.index {
+  right: 0;
+  top: 0;
+  z-index: 5;
+}
+.realTimeOpenCloseTime .yAxisRight_top.landscape {
+  -webkit-transform: translateZ(100px);
+          transform: translateZ(100px);
+}
+.realTimeOpenCloseTime .yAxisRight_bottom {
+  position: absolute;
+  right: 0;
+  top: 60%;
+}
+.realTimeOpenCloseTime .yAxisRight_bottom.index {
+  right: 0;
+  top: 67%;
+  z-index: 5;
+}
+.realTimeOpenCloseTime .yAxisRight_bottom.landscape {
+  -webkit-transform: translateZ(100px);
+          transform: translateZ(100px);
+}

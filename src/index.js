@@ -178,16 +178,12 @@ class stockChartTimeline extends Component {
           <span className={cx('fl_left', { index: isIndex }, { landscape: landscape })}>9:30</span>
           <span className={cx('fl_middle', { index: isIndex }, { landscape: landscape })}>11:30|13:00</span>
           <span className={cx('fl_right', { index: isIndex }, { landscape: landscape })}>15:00</span>
-          <span className={cx('yAxisLeft_top', { index: isIndex })}>{yAxisLeft[2]}</span>
-          <span className={cx('yAxisLeft_middle', { index: isIndex })}>{yAxisLeft[1]}</span>
+          <span className={cx('yAxisLeft_top', { index: isIndex }, { landscape: landscape })}>{yAxisLeft[2]}</span>
+          <span className={cx('yAxisLeft_middle', { index: isIndex }, { landscape: landscape })}>{yAxisLeft[1]}</span>
           <span className={cx('yAxisLeft_bottom', { index: isIndex }, { landscape: landscape })}>{yAxisLeft[0]}</span>
           <span className={cx('yAxisLeft_bottom_volume', { index: isIndex }, { landscape: landscape })}>{unitFormat({ value: isFinite(volumeMaxValue) ? volumeMaxValue : '' })}</span>
-          <span className={cx('yAxisRight_top', {
-            index: isIndex
-          })}>{yAxisRight[1]}</span>
-          <span className={cx('yAxisRight_bottom', {
-            index: isIndex
-          })}>{yAxisRight[0]}</span>
+          <span className={cx('yAxisRight_top', { index: isIndex }, { landscape: landscape })}>{yAxisRight[1]}</span>
+          <span className={cx('yAxisRight_bottom', { index: isIndex }, { landscape: landscape })}>{yAxisRight[0]}</span>
         </div>
         <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={chartMargin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[240, 0]} zoomMultiplier={0} zIndex={0} xAxisZoom={() => {}} onSelect={this.onSelect} defaultFocus={false}  zoomEvent={false} clamp={false} eventCoordinateReverse={eventCoordinateReverse} panEvent mouseMoveEvent>
           <Chart id={1} yExtents={[Number(yExtents[0]) + delta, Number(yExtents[1]) - delta]} height={lineChartHeight} origin={(w, h) => [0, 0]}>

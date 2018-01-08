@@ -16,15 +16,12 @@
 .realTimeOpenCloseTime {
   color: #c5c5c5;
   font-size: @font-size-small;
-  z-index: 5;
-
-  //width: 100%;
-  //bottom: 1em;
 
   .fl_left {
     position: absolute;
     left: 0;
     bottom: -0.02rem;
+    z-index: 5;
 
     &.index {
       left: 0;
@@ -33,6 +30,7 @@
 
     &.landscape {
       bottom: -0.1rem;
+      transform: translateZ(100px);
     }
   }
 
@@ -40,6 +38,7 @@
     position: absolute;
     right: 0;
     bottom: -0.02rem;
+    z-index: 5;
 
     &.index {
       bottom: -0.15rem;
@@ -47,6 +46,7 @@
 
     &.landscape {
       bottom: -0.1rem;
+      transform: translateZ(100px);
     }
   }
 
@@ -55,6 +55,7 @@
     transform: translateX(-50%);
     left: 50%;
     bottom: -0.02rem;
+    z-index: 5;
 
     &.index {
       bottom: -0.15rem;
@@ -62,6 +63,7 @@
 
     &.landscape {
       bottom: -0.1rem;
+      transform: translateZ(100px);
     }
   }
 
@@ -69,10 +71,15 @@
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 5;
 
     &.index {
       left: 0;
       top: 0;
+    }
+
+    &.landscape {
+      transform: translateZ(100px);
     }
   }
 
@@ -80,10 +87,15 @@
     position: absolute;
     left: 0;
     top: 30%;
+    z-index: 5;
 
     &.index {
       left: 0;
       top: 41.5%;
+    }
+
+    &.landscape {
+      transform: translateZ(100px);
     }
   }
 
@@ -99,6 +111,8 @@
 
     &.landscape {
       top: 65%;
+      z-index: 5;
+      transform: translateZ(100px);
     }
   }
 
@@ -115,6 +129,8 @@
 
     &.landscape {
       top: 77%;
+      z-index: 5;
+      transform: translateZ(100px);
     }
   }
 
@@ -126,6 +142,11 @@
     &.index {
       right: 0;
       top: 0;
+      z-index: 5;
+    }
+
+    &.landscape {
+      transform: translateZ(100px);
     }
   }
 
@@ -137,6 +158,11 @@
     &.index {
       right: 0;
       top: 67%;
+      z-index: 5;
+    }
+
+    &.landscape {
+      transform: translateZ(100px);
     }
   }
 }
