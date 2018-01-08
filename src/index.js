@@ -181,7 +181,7 @@ class stockChartTimeline extends Component {
           <span className={cx('yAxisLeft_top', { index: isIndex }, { landscape: landscape })}>{yAxisLeft[2]}</span>
           <span className={cx('yAxisLeft_middle', { index: isIndex }, { landscape: landscape })}>{yAxisLeft[1]}</span>
           <span className={cx('yAxisLeft_bottom', { index: isIndex }, { landscape: landscape })}>{yAxisLeft[0]}</span>
-          <span className={cx('yAxisLeft_bottom_volume', { index: isIndex }, { landscape: landscape })}>{unitFormat({ value: isFinite(volumeMaxValue) ? volumeMaxValue : '' })}</span>
+          <span className={cx('yAxisLeft_bottom_volume', { index: isIndex }, { landscape: landscape })}>{volumeMaxValue}</span>
           <span className={cx('yAxisRight_top', { index: isIndex }, { landscape: landscape })}>{yAxisRight[1]}</span>
           <span className={cx('yAxisRight_bottom', { index: isIndex }, { landscape: landscape })}>{yAxisRight[0]}</span>
         </div>

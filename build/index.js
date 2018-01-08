@@ -279,7 +279,7 @@ var stockChartTimeline = function (_Component) {
           _react2.default.createElement(
             'span',
             { className: (0, _classnames2.default)('yAxisLeft_bottom_volume', { index: isIndex }, { landscape: landscape }) },
-            unitFormat({ value: isFinite(volumeMaxValue) ? volumeMaxValue : '' })
+            volumeMaxValue
           ),
           _react2.default.createElement(
             'span',
