@@ -134,7 +134,7 @@ function tooltipContent(ys, precision) {
 class stockChartTimeline extends Component {
 
   render() {
-    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset, lineTickValues, barTickValues, eventCoordinateReverse, isIndex, gridLabel, precision } = this.props;
+    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset, lineTickValues, barTickValues, eventCoordinateReverse, isIndex, gridLabel, precision, isHKStock } = this.props;
     const { yAxisLeft, yAxisRight, volumeMaxValue } = gridLabel;
     const xScaleProvider = scale.discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
     const { data, xAccessor, displayXAccessor } = xScaleProvider(chartData);
@@ -171,13 +171,15 @@ class stockChartTimeline extends Component {
       landscape = true;
     }
     let delta = (Number(yExtents[0]) - Number(yExtents[1])) * 0.01;
+    const totalDotsNum = isHKStock ? 330 : 240;
+    let xAxisLabel = isHKStock ? ['9:30', '12:00', '16:00'] : ['9:30', '11:30|13:00', '15:00'];
 
     return (
       <div className="container_bg_ChatBkg" style={style} >
         <div className="realTimeOpenCloseTime">
-          <span className={cx('fl_left', { index: isIndex }, { landscape: landscape })}>9:30</span>
-          <span className={cx('fl_middle', { index: isIndex }, { landscape: landscape })}>11:30|13:00</span>
-          <span className={cx('fl_right', { index: isIndex }, { landscape: landscape })}>15:00</span>
+          <span className={cx('fl_left', { index: isIndex }, { landscape: landscape })}>{xAxisLabel[0]}</span>
+          <span className={cx('fl_middle', { index: isIndex }, { landscape: landscape })}>{xAxisLabel[1]}</span>
+          <span className={cx('fl_right', { index: isIndex }, { landscape: landscape })}>{xAxisLabel[2]}</span>
           <span className={cx('yAxisLeft_top', { index: isIndex }, { landscape: landscape })}>{yAxisLeft[2]}</span>
           <span className={cx('yAxisLeft_middle', { index: isIndex }, { landscape: landscape })}>{yAxisLeft[1]}</span>
           <span className={cx('yAxisLeft_bottom', { index: isIndex }, { landscape: landscape })}>{yAxisLeft[0]}</span>
@@ -185,7 +187,7 @@ class stockChartTimeline extends Component {
           <span className={cx('yAxisRight_top', { index: isIndex }, { landscape: landscape })}>{yAxisRight[1]}</span>
           <span className={cx('yAxisRight_bottom', { index: isIndex }, { landscape: landscape })}>{yAxisRight[0]}</span>
         </div>
-        <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={chartMargin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[240, 0]} zoomMultiplier={0} zIndex={0} xAxisZoom={() => {}} onSelect={this.onSelect} defaultFocus={false}  zoomEvent={false} clamp={false} eventCoordinateReverse={eventCoordinateReverse} panEvent mouseMoveEvent>
+        <ChartCanvas height={height} width={width} ratio={ratio} displayXAccessor={displayXAccessor} margin={chartMargin} type={type} seriesName="MSFT" data={data} xScale={scaleLinear()} xAccessor={xAccessor} xExtents={[totalDotsNum, 0]} zoomMultiplier={0} zIndex={0} xAxisZoom={() => {}} onSelect={this.onSelect} defaultFocus={false}  zoomEvent={false} clamp={false} eventCoordinateReverse={eventCoordinateReverse} panEvent mouseMoveEvent>
           <Chart id={1} yExtents={[Number(yExtents[0]) + delta, Number(yExtents[1]) - delta]} height={lineChartHeight} origin={(w, h) => [0, 0]}>
             <axes.XAxis axisAt="bottom" orient="bottom" ticks={1} zoomEnabled={false} showTickLabel={false} {...xGrid} />
             <axes.YAxis axisAt="right" orient="right" zoomEnabled={false} showTickLabel={false} {...lineYGrid} showDomain={false} />
@@ -255,12 +257,17 @@ stockChartTimeline.propTypes = {
   showGrid: PropTypes.bool,
   yExtents: PropTypes.array,
   isIndex: PropTypes.bool,
-  gridLabel: PropTypes.object,
+  gridLabel: PropTypes.shape({
+    yAxisLeft: PropTypes.array,
+    yAxisRight: PropTypes.array,
+    volumeMaxValue: PropTypes.number,
+  }),
   backgroundColor: PropTypes.string,
   style: PropTypes.object,
   offset: PropTypes.number,
   eventCoordinateReverse: PropTypes.bool,
-  precision: PropTypes.number
+  precision: PropTypes.number,
+  isHKStock: PropTypes.bool,
 };
 
 stockChartTimeline.defaultProps = {
@@ -272,13 +279,19 @@ stockChartTimeline.defaultProps = {
   lineTickValues: [],
   eventCoordinateReverse: false,
   barTickValues: [],
+  gridLabel: PropTypes.shape({
+    yAxisLeft: [],
+    yAxisRight: [],
+    volumeMaxValue: 0,
+  }),
   chartMargin: {
     left: 5, right: 5, top: 10, bottom: 0
   },
   showGrid: true,
   backgroundColor: '#393c43',
   style: {},
-  precision: 2
+  precision: 2,
+  isHKStock: false,
 };
 
 export default helper.fitDimensions(stockChartTimeline);

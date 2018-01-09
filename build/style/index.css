@@ -22,8 +22,15 @@
 }
 .realTimeOpenCloseTime .fl_left.landscape {
   bottom: -0.1rem;
+  transform: translateZ(100px);
   -webkit-transform: translateZ(100px);
-          transform: translateZ(100px);
+  /* Safari 和 Chrome */
+  -ms-transform: translateZ(100px);
+  /* IE 9 */
+  -moz-transform: translateZ(100px);
+  /* Firefox */
+  -o-transform: translateZ(100px);
+  /* Opera */
 }
 .realTimeOpenCloseTime .fl_right {
   position: absolute;
@@ -36,8 +43,15 @@
 }
 .realTimeOpenCloseTime .fl_right.landscape {
   bottom: -0.1rem;
+  transform: translateZ(100px);
   -webkit-transform: translateZ(100px);
-          transform: translateZ(100px);
+  /* Safari 和 Chrome */
+  -ms-transform: translateZ(100px);
+  /* IE 9 */
+  -moz-transform: translateZ(100px);
+  /* Firefox */
+  -o-transform: translateZ(100px);
+  /* Opera */
 }
 .realTimeOpenCloseTime .fl_middle {
   position: absolute;
@@ -52,8 +66,15 @@
 }
 .realTimeOpenCloseTime .fl_middle.landscape {
   bottom: -0.1rem;
+  transform: translateZ(100px);
   -webkit-transform: translateZ(100px);
-          transform: translateZ(100px);
+  /* Safari 和 Chrome */
+  -ms-transform: translateZ(100px);
+  /* IE 9 */
+  -moz-transform: translateZ(100px);
+  /* Firefox */
+  -o-transform: translateZ(100px);
+  /* Opera */
 }
 .realTimeOpenCloseTime .yAxisLeft_top {
   position: absolute;
@@ -66,8 +87,15 @@
   top: 0;
 }
 .realTimeOpenCloseTime .yAxisLeft_top.landscape {
+  transform: translateZ(100px);
   -webkit-transform: translateZ(100px);
-          transform: translateZ(100px);
+  /* Safari 和 Chrome */
+  -ms-transform: translateZ(100px);
+  /* IE 9 */
+  -moz-transform: translateZ(100px);
+  /* Firefox */
+  -o-transform: translateZ(100px);
+  /* Opera */
 }
 .realTimeOpenCloseTime .yAxisLeft_middle {
   position: absolute;
@@ -80,8 +108,15 @@
   top: 41.5%;
 }
 .realTimeOpenCloseTime .yAxisLeft_middle.landscape {
+  transform: translateZ(100px);
   -webkit-transform: translateZ(100px);
-          transform: translateZ(100px);
+  /* Safari 和 Chrome */
+  -ms-transform: translateZ(100px);
+  /* IE 9 */
+  -moz-transform: translateZ(100px);
+  /* Firefox */
+  -o-transform: translateZ(100px);
+  /* Opera */
 }
 .realTimeOpenCloseTime .yAxisLeft_bottom {
   position: absolute;
@@ -95,8 +130,15 @@
 .realTimeOpenCloseTime .yAxisLeft_bottom.landscape {
   top: 65%;
   z-index: 5;
+  transform: translateZ(100px);
   -webkit-transform: translateZ(100px);
-          transform: translateZ(100px);
+  /* Safari 和 Chrome */
+  -ms-transform: translateZ(100px);
+  /* IE 9 */
+  -moz-transform: translateZ(100px);
+  /* Firefox */
+  -o-transform: translateZ(100px);
+  /* Opera */
 }
 .realTimeOpenCloseTime .yAxisLeft_bottom_volume {
   position: absolute;
@@ -111,8 +153,15 @@
 .realTimeOpenCloseTime .yAxisLeft_bottom_volume.landscape {
   top: 77%;
   z-index: 5;
+  transform: translateZ(100px);
   -webkit-transform: translateZ(100px);
-          transform: translateZ(100px);
+  /* Safari 和 Chrome */
+  -ms-transform: translateZ(100px);
+  /* IE 9 */
+  -moz-transform: translateZ(100px);
+  /* Firefox */
+  -o-transform: translateZ(100px);
+  /* Opera */
 }
 .realTimeOpenCloseTime .yAxisRight_top {
   position: absolute;
@@ -125,8 +174,15 @@
   z-index: 5;
 }
 .realTimeOpenCloseTime .yAxisRight_top.landscape {
+  transform: translateZ(100px);
   -webkit-transform: translateZ(100px);
-          transform: translateZ(100px);
+  /* Safari 和 Chrome */
+  -ms-transform: translateZ(100px);
+  /* IE 9 */
+  -moz-transform: translateZ(100px);
+  /* Firefox */
+  -o-transform: translateZ(100px);
+  /* Opera */
 }
 .realTimeOpenCloseTime .yAxisRight_bottom {
   position: absolute;
@@ -139,6 +195,15 @@
   z-index: 5;
 }
 .realTimeOpenCloseTime .yAxisRight_bottom.landscape {
+  top: 65%;
+  z-index: 5;
+  transform: translateZ(100px);
   -webkit-transform: translateZ(100px);
-          transform: translateZ(100px);
+  /* Safari 和 Chrome */
+  -ms-transform: translateZ(100px);
+  /* IE 9 */
+  -moz-transform: translateZ(100px);
+  /* Firefox */
+  -o-transform: translateZ(100px);
+  /* Opera */
 }

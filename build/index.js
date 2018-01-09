@@ -191,7 +191,8 @@ var stockChartTimeline = function (_Component) {
           eventCoordinateReverse = _props.eventCoordinateReverse,
           isIndex = _props.isIndex,
           gridLabel = _props.gridLabel,
-          precision = _props.precision;
+          precision = _props.precision,
+          isHKStock = _props.isHKStock;
       var yAxisLeft = gridLabel.yAxisLeft,
           yAxisRight = gridLabel.yAxisRight,
           volumeMaxValue = gridLabel.volumeMaxValue;
@@ -239,6 +240,8 @@ var stockChartTimeline = function (_Component) {
         landscape = true;
       }
       var delta = (Number(yExtents[0]) - Number(yExtents[1])) * 0.01;
+      var totalDotsNum = isHKStock ? 330 : 240;
+      var xAxisLabel = isHKStock ? ['9:30', '12:00', '16:00'] : ['9:30', '11:30|13:00', '15:00'];
 
       return _react2.default.createElement(
         'div',
@@ -249,17 +252,17 @@ var stockChartTimeline = function (_Component) {
           _react2.default.createElement(
             'span',
             { className: (0, _classnames2.default)('fl_left', { index: isIndex }, { landscape: landscape }) },
-            '9:30'
+            xAxisLabel[0]
           ),
           _react2.default.createElement(
             'span',
             { className: (0, _classnames2.default)('fl_middle', { index: isIndex }, { landscape: landscape }) },
-            '11:30|13:00'
+            xAxisLabel[1]
           ),
           _react2.default.createElement(
             'span',
             { className: (0, _classnames2.default)('fl_right', { index: isIndex }, { landscape: landscape }) },
-            '15:00'
+            xAxisLabel[2]
           ),
           _react2.default.createElement(
             'span',
@@ -294,7 +297,7 @@ var stockChartTimeline = function (_Component) {
         ),
         _react2.default.createElement(
           _cefcStockcharts.ChartCanvas,
-          { height: height, width: width, ratio: ratio, displayXAccessor: displayXAccessor, margin: chartMargin, type: type, seriesName: 'MSFT', data: data, xScale: (0, _d3Scale.scaleLinear)(), xAccessor: xAccessor, xExtents: [240, 0], zoomMultiplier: 0, zIndex: 0, xAxisZoom: function xAxisZoom() {}, onSelect: this.onSelect, defaultFocus: false, zoomEvent: false, clamp: false, eventCoordinateReverse: eventCoordinateReverse, panEvent: true, mouseMoveEvent: true },
+          { height: height, width: width, ratio: ratio, displayXAccessor: displayXAccessor, margin: chartMargin, type: type, seriesName: 'MSFT', data: data, xScale: (0, _d3Scale.scaleLinear)(), xAccessor: xAccessor, xExtents: [totalDotsNum, 0], zoomMultiplier: 0, zIndex: 0, xAxisZoom: function xAxisZoom() {}, onSelect: this.onSelect, defaultFocus: false, zoomEvent: false, clamp: false, eventCoordinateReverse: eventCoordinateReverse, panEvent: true, mouseMoveEvent: true },
           _react2.default.createElement(
             _cefcStockcharts.Chart,
             { id: 1, yExtents: [Number(yExtents[0]) + delta, Number(yExtents[1]) - delta], height: lineChartHeight, origin: function origin(w, h) {
@@ -380,12 +383,17 @@ stockChartTimeline.propTypes = {
   showGrid: _propTypes2.default.bool,
   yExtents: _propTypes2.default.array,
   isIndex: _propTypes2.default.bool,
-  gridLabel: _propTypes2.default.object,
+  gridLabel: _propTypes2.default.shape({
+    yAxisLeft: _propTypes2.default.array,
+    yAxisRight: _propTypes2.default.array,
+    volumeMaxValue: _propTypes2.default.number
+  }),
   backgroundColor: _propTypes2.default.string,
   style: _propTypes2.default.object,
   offset: _propTypes2.default.number,
   eventCoordinateReverse: _propTypes2.default.bool,
-  precision: _propTypes2.default.number
+  precision: _propTypes2.default.number,
+  isHKStock: _propTypes2.default.bool
 };
 
 stockChartTimeline.defaultProps = {
@@ -397,13 +405,19 @@ stockChartTimeline.defaultProps = {
   lineTickValues: [],
   eventCoordinateReverse: false,
   barTickValues: [],
+  gridLabel: _propTypes2.default.shape({
+    yAxisLeft: [],
+    yAxisRight: [],
+    volumeMaxValue: 0
+  }),
   chartMargin: {
     left: 5, right: 5, top: 10, bottom: 0
   },
   showGrid: true,
   backgroundColor: '#393c43',
   style: {},
-  precision: 2
+  precision: 2,
+  isHKStock: false
 };
 
 exports.default = _cefcStockcharts.helper.fitDimensions(stockChartTimeline);
