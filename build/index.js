@@ -192,7 +192,8 @@ var stockChartTimeline = function (_Component) {
           isIndex = _props.isIndex,
           gridLabel = _props.gridLabel,
           precision = _props.precision,
-          isHKStock = _props.isHKStock;
+          isHKStock = _props.isHKStock,
+          isIOS = _props.isIOS;
       var yAxisLeft = gridLabel.yAxisLeft,
           yAxisRight = gridLabel.yAxisRight,
           volumeMaxValue = gridLabel.volumeMaxValue;
@@ -256,7 +257,7 @@ var stockChartTimeline = function (_Component) {
           ),
           _react2.default.createElement(
             'span',
-            { className: (0, _classnames2.default)('fl_middle', { index: isIndex }, { landscape: landscape }) },
+            { className: (0, _classnames2.default)('fl_middle', { index: isIndex }, { landscape: landscape }, { iOSLandscape: isIOS && landscape }) },
             xAxisLabel[1]
           ),
           _react2.default.createElement(
@@ -393,7 +394,8 @@ stockChartTimeline.propTypes = {
   offset: _propTypes2.default.number,
   eventCoordinateReverse: _propTypes2.default.bool,
   precision: _propTypes2.default.number,
-  isHKStock: _propTypes2.default.bool
+  isHKStock: _propTypes2.default.bool,
+  isIOS: _propTypes2.default.bool
 };
 
 stockChartTimeline.defaultProps = {
@@ -417,7 +419,8 @@ stockChartTimeline.defaultProps = {
   backgroundColor: '#393c43',
   style: {},
   precision: 2,
-  isHKStock: false
+  isHKStock: false,
+  isIOS: false
 };
 
 exports.default = _cefcStockcharts.helper.fitDimensions(stockChartTimeline);

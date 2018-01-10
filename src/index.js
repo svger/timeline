@@ -134,7 +134,7 @@ function tooltipContent(ys, precision) {
 class stockChartTimeline extends Component {
 
   render() {
-    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset, lineTickValues, barTickValues, eventCoordinateReverse, isIndex, gridLabel, precision, isHKStock } = this.props;
+    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset, lineTickValues, barTickValues, eventCoordinateReverse, isIndex, gridLabel, precision, isHKStock, isIOS } = this.props;
     const { yAxisLeft, yAxisRight, volumeMaxValue } = gridLabel;
     const xScaleProvider = scale.discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
     const { data, xAccessor, displayXAccessor } = xScaleProvider(chartData);
@@ -178,7 +178,7 @@ class stockChartTimeline extends Component {
       <div className="container_bg_ChatBkg" style={style} >
         <div className="realTimeOpenCloseTime">
           <span className={cx('fl_left', { index: isIndex }, { landscape: landscape })}>{xAxisLabel[0]}</span>
-          <span className={cx('fl_middle', { index: isIndex }, { landscape: landscape })}>{xAxisLabel[1]}</span>
+          <span className={cx('fl_middle', { index: isIndex }, { landscape: landscape }, { iOSLandscape: isIOS && landscape})}>{xAxisLabel[1]}</span>
           <span className={cx('fl_right', { index: isIndex }, { landscape: landscape })}>{xAxisLabel[2]}</span>
           <span className={cx('yAxisLeft_top', { index: isIndex }, { landscape: landscape })}>{yAxisLeft[2]}</span>
           <span className={cx('yAxisLeft_middle', { index: isIndex }, { landscape: landscape })}>{yAxisLeft[1]}</span>
@@ -268,6 +268,7 @@ stockChartTimeline.propTypes = {
   eventCoordinateReverse: PropTypes.bool,
   precision: PropTypes.number,
   isHKStock: PropTypes.bool,
+  isIOS: PropTypes.bool,
 };
 
 stockChartTimeline.defaultProps = {
@@ -292,6 +293,7 @@ stockChartTimeline.defaultProps = {
   style: {},
   precision: 2,
   isHKStock: false,
+  isIOS: false,
 };
 
 export default helper.fitDimensions(stockChartTimeline);
