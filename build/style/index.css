@@ -55,18 +55,16 @@
 }
 .realTimeOpenCloseTime .fl_middle {
   position: absolute;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  left: 50%;
   bottom: -0.02rem;
+  width: 100%;
   z-index: 5;
+  text-align: center;
 }
 .realTimeOpenCloseTime .fl_middle.index {
   bottom: -0.15rem;
 }
 .realTimeOpenCloseTime .fl_middle.landscape {
   bottom: -0.1rem;
-  left: 44%;
   transform: translateZ(100px);
   -webkit-transform: translateZ(100px);
   /* Safari 和 Chrome */
@@ -79,7 +77,6 @@
 }
 .realTimeOpenCloseTime .fl_middle.iOSLandscape {
   bottom: -0.1rem;
-  left: 46%;
   transform: translateZ(100px);
   -webkit-transform: translateZ(100px);
   /* Safari 和 Chrome */
