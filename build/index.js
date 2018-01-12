@@ -164,9 +164,66 @@ var stockChartTimeline = function (_Component) {
   _inherits(stockChartTimeline, _Component);
 
   function stockChartTimeline() {
+    var _ref2;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, stockChartTimeline);
 
-    return _possibleConstructorReturn(this, (stockChartTimeline.__proto__ || Object.getPrototypeOf(stockChartTimeline)).apply(this, arguments));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = stockChartTimeline.__proto__ || Object.getPrototypeOf(stockChartTimeline)).call.apply(_ref2, [this].concat(args))), _this), _this.getChartStyle = function (_ref3) {
+      var data = _ref3.data,
+          isIndex = _ref3.isIndex,
+          showGrid = _ref3.showGrid,
+          lineTickValues = _ref3.lineTickValues,
+          barTickValues = _ref3.barTickValues,
+          isHKStock = _ref3.isHKStock,
+          chartMargin = _ref3.chartMargin,
+          yExtents = _ref3.yExtents,
+          height = _ref3.height,
+          width = _ref3.width;
+
+      var gridHeight = height - chartMargin.top - chartMargin.bottom;
+      var gridWidth = width - chartMargin.left - chartMargin.right;
+      var lineYGrid = showGrid ? {
+        innerTickSize: -1 * gridWidth,
+        tickStrokeDasharray: 'Solid',
+        tickStrokeOpacity: 1,
+        tickStrokeWidth: 1,
+        tickSize: 100,
+        tickValues: lineTickValues
+      } : {};
+      var xGrid = showGrid ? {
+        innerTickSize: -1 * gridHeight,
+        tickStrokeDasharray: 'Solid',
+        tickStrokeOpacity: 1,
+        tickStrokeWidth: 1,
+        tickSize: 100,
+        tickValues: [parseInt(data.length / 2)]
+      } : {};
+      var barYGrid = showGrid ? {
+        innerTickSize: -1 * gridWidth,
+        tickStrokeDasharray: 'Solid',
+        tickStrokeOpacity: 1,
+        tickStrokeWidth: 1,
+        tickSize: 100,
+        tickValues: barTickValues
+      } : {};
+      var landscape = false;
+
+      if (!isIndex && 1.5 * height < width) {
+        // 说明是非指数 横屏
+        landscape = true;
+      }
+      var delta = (Number(yExtents[0]) - Number(yExtents[1])) * 0.01;
+      var totalDotsNum = isHKStock ? 330 : 240;
+      var xAxisLabel = isHKStock ? ['9:30', '12:00', '16:00'] : ['9:30', '11:30|13:00', '15:00'];
+
+      return { lineYGrid: lineYGrid, xGrid: xGrid, barYGrid: barYGrid, totalDotsNum: totalDotsNum, landscape: landscape, xAxisLabel: xAxisLabel, delta: delta };
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(stockChartTimeline, [{
@@ -207,42 +264,16 @@ var stockChartTimeline = function (_Component) {
           xAccessor = _xScaleProvider.xAccessor,
           displayXAccessor = _xScaleProvider.displayXAccessor;
 
-      var gridHeight = height - chartMargin.top - chartMargin.bottom;
-      var gridWidth = width - chartMargin.left - chartMargin.right;
-      var lineYGrid = showGrid ? {
-        innerTickSize: -1 * gridWidth,
-        tickStrokeDasharray: 'Solid',
-        tickStrokeOpacity: 1,
-        tickStrokeWidth: 1,
-        tickSize: 100,
-        tickValues: lineTickValues
-      } : {};
-      var xGrid = showGrid ? {
-        innerTickSize: -1 * gridHeight,
-        tickStrokeDasharray: 'Solid',
-        tickStrokeOpacity: 1,
-        tickStrokeWidth: 1,
-        tickSize: 100,
-        tickValues: [parseInt(data.length / 2)]
-      } : {};
-      var barYGrid = showGrid ? {
-        innerTickSize: -1 * gridWidth,
-        tickStrokeDasharray: 'Solid',
-        tickStrokeOpacity: 1,
-        tickStrokeWidth: 1,
-        tickSize: 100,
-        tickValues: barTickValues
-      } : {};
-      style.backgroundColor = backgroundColor;
-      var landscape = false;
+      var _getChartStyle = this.getChartStyle({ data: data, isIndex: isIndex, showGrid: showGrid, backgroundColor: backgroundColor, lineTickValues: lineTickValues, barTickValues: barTickValues, isHKStock: isHKStock, chartMargin: chartMargin, yExtents: yExtents, height: height, width: width }),
+          lineYGrid = _getChartStyle.lineYGrid,
+          xGrid = _getChartStyle.xGrid,
+          barYGrid = _getChartStyle.barYGrid,
+          totalDotsNum = _getChartStyle.totalDotsNum,
+          landscape = _getChartStyle.landscape,
+          xAxisLabel = _getChartStyle.xAxisLabel,
+          delta = _getChartStyle.delta;
 
-      if (!isIndex && 1.5 * height < width) {
-        // 说明是非指数 横屏
-        landscape = true;
-      }
-      var delta = (Number(yExtents[0]) - Number(yExtents[1])) * 0.01;
-      var totalDotsNum = isHKStock ? 330 : 240;
-      var xAxisLabel = isHKStock ? ['9:30', '12:00', '16:00'] : ['9:30', '11:30|13:00', '15:00'];
+      style.backgroundColor = backgroundColor;
 
       return _react2.default.createElement(
         'div',
