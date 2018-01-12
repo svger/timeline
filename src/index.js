@@ -132,39 +132,33 @@ function tooltipContent(ys, precision) {
 }
 
 class stockChartTimeline extends Component {
-
-  render() {
-    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset, lineTickValues, barTickValues, eventCoordinateReverse, isIndex, gridLabel, precision, isHKStock, isIOS } = this.props;
-    const { yAxisLeft, yAxisRight, volumeMaxValue } = gridLabel;
-    const xScaleProvider = scale.discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
-    const { data, xAccessor, displayXAccessor } = xScaleProvider(chartData);
+  getChartStyle = ({ data, isIndex, showGrid, lineTickValues, barTickValues, isHKStock, chartMargin, yExtents, height, width }) => {
     let gridHeight = height - chartMargin.top - chartMargin.bottom;
     let gridWidth = width - chartMargin.left - chartMargin.right;
     let lineYGrid = showGrid ? {
-      innerTickSize: -1 * gridWidth,
-      tickStrokeDasharray: 'Solid',
-      tickStrokeOpacity: 1,
-      tickStrokeWidth: 1,
-      tickSize: 100,
-      tickValues: lineTickValues
-    } : {};
+          innerTickSize: -1 * gridWidth,
+          tickStrokeDasharray: 'Solid',
+          tickStrokeOpacity: 1,
+          tickStrokeWidth: 1,
+          tickSize: 100,
+          tickValues: lineTickValues
+        } : {};
     let xGrid = showGrid ? {
-      innerTickSize: -1 * gridHeight,
-      tickStrokeDasharray: 'Solid',
-      tickStrokeOpacity: 1,
-      tickStrokeWidth: 1,
-      tickSize: 100,
-      tickValues: [parseInt(data.length / 2)],
-    } : {};
+          innerTickSize: -1 * gridHeight,
+          tickStrokeDasharray: 'Solid',
+          tickStrokeOpacity: 1,
+          tickStrokeWidth: 1,
+          tickSize: 100,
+          tickValues: [parseInt(data.length / 2)],
+        } : {};
     let barYGrid = showGrid ? {
-      innerTickSize: -1 * gridWidth,
-      tickStrokeDasharray: 'Solid',
-      tickStrokeOpacity: 1,
-      tickStrokeWidth: 1,
-      tickSize: 100,
-      tickValues: barTickValues
-    } : {};
-    style.backgroundColor = backgroundColor;
+          innerTickSize: -1 * gridWidth,
+          tickStrokeDasharray: 'Solid',
+          tickStrokeOpacity: 1,
+          tickStrokeWidth: 1,
+          tickSize: 100,
+          tickValues: barTickValues
+        } : {};
     let landscape = false;
 
     if (!isIndex && 1.5 * height <  width) { // 说明是非指数 横屏
@@ -173,6 +167,17 @@ class stockChartTimeline extends Component {
     let delta = (Number(yExtents[0]) - Number(yExtents[1])) * 0.01;
     const totalDotsNum = isHKStock ? 330 : 240;
     let xAxisLabel = isHKStock ? ['9:30', '12:00', '16:00'] : ['9:30', '11:30|13:00', '15:00'];
+
+    return { lineYGrid, xGrid, barYGrid, totalDotsNum, landscape, xAxisLabel, delta };
+  }
+
+  render() {
+    let { type, chartData, height, width, ratio, lineChartHeight, barChartHeight, chartMargin, showGrid, yExtents, backgroundColor, style, offset, lineTickValues, barTickValues, eventCoordinateReverse, isIndex, gridLabel, precision, isHKStock, isIOS } = this.props;
+    const { yAxisLeft, yAxisRight, volumeMaxValue } = gridLabel;
+    const xScaleProvider = scale.discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
+    const { data, xAccessor, displayXAccessor } = xScaleProvider(chartData);
+    let { lineYGrid, xGrid, barYGrid, totalDotsNum, landscape, xAxisLabel, delta } = this.getChartStyle({ data, isIndex, showGrid, backgroundColor, lineTickValues, barTickValues, isHKStock, chartMargin, yExtents, height, width });
+    style.backgroundColor = backgroundColor;
 
     return (
       <div className="container_bg_ChatBkg" style={style} >
